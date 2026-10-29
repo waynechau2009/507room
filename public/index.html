@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f0"><meta name="description" content="One room, six friends. A shared occupancy calendar for room 507.">
+  <title>507 room · Our shared calendar</title>
+  <link rel="stylesheet" href="/style.css"><script src="/app.js" type="module"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/" aria-label="507 room home"><span class="brand-icon">⌂</span>507<span class="brand-light">room</span></a><div class="header-right"><span class="shared-label">A little space for all of us</span><span class="shared-badge"><span class="dot"></span>Shared calendar</span></div></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">SIX FRIENDS. ONE SPACE.</p><h1>Make room for <em>each other.</em></h1><p class="subtitle">See who’s staying, find a free day, and make yourself at home.</p></div><button class="primary" id="book-today"><span aria-hidden="true">＋</span> Add a stay</button></section>
+    <section class="workspace" aria-label="Room calendar">
+      <aside>
+        <div class="room-card"><div class="room-illustration" aria-hidden="true"><svg viewBox="0 0 220 145" fill="none"><path d="M35 119H189M52 119V37L111 13L173 37V119" stroke="currentColor" stroke-width="1.5"/><path d="M62 114V69H121V114M62 88H121M91 69V88M56 114H131M137 114V48H164V114M142 54H159V84H142Z" stroke="currentColor" stroke-width="1.5"/><path d="M65 64L59 46H93L87 64M75 46V29M135 94H167M145 105H157" stroke="currentColor" stroke-width="1.5"/><path d="M175 119V88M175 100C156 94 168 79 175 96C181 74 193 87 175 100" stroke="currentColor" stroke-width="1.5"/></svg><span class="room-number">507</span></div><p class="eyebrow">OUR LITTLE CORNER</p><h2>Same room.<br>Different plans.</h2><p>A shared home base.<br>Keep everyone in the loop.</p></div>
+        <div class="people"><div class="section-label">THE ROOMMATES <span>06</span></div><div id="member-list"></div></div>
+        <div class="aside-note"><span aria-hidden="true">↗</span><p>Plans changed? Click any date to update who’s staying.</p></div>
+      </aside>
+      <div class="calendar-column">
+        <div class="calendar-card">
+          <div class="calendar-toolbar"><div class="month-heading"><h2 id="month-title"></h2><span id="month-caption">A little planning goes a long way.</span></div><div class="navigation"><button id="today">Today</button><div class="arrows"><button id="prev" aria-label="Previous month">←</button><button id="next" aria-label="Next month">→</button></div></div></div>
+          <div class="weekdays" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
+          <div id="calendar" class="calendar-grid" aria-label="Monthly occupancy"></div>
+          <div class="calendar-footer"><span><i class="legend-dot occupied"></i> Occupied <i class="legend-dot available"></i> Blank means available</span><span id="sync-status" role="status">Connecting…</span></div>
+        </div>
+        <section class="bottom-row"><div class="month-summary"><div class="section-label">THIS MONTH AT A GLANCE</div><div class="summary-numbers"><div><strong id="occupied-count">—</strong><span>days occupied</span></div><div class="number-divider"></div><div><strong id="available-count">—</strong><span>days available</span></div><span class="summary-doodle" aria-hidden="true">☼</span></div></div><div class="next-stay"><div class="section-label">NEXT ON THE CALENDAR <span aria-hidden="true">↗</span></div><div id="next-stay-content">Loading the room’s plans…</div></div></section>
+        <p class="bottom-note">A room is better when it’s shared. <span>Make a little space.</span></p>
+      </div>
+    </section>
+  </main>
+  <footer class="page-footer"><span>507 room <span class="footer-separator">/</span> Our shared calendar</span><span>Yoyo · Sum · Hilary · Leo · Wayne · Cindy</span></footer>
+  <dialog id="booking-dialog" aria-labelledby="dialog-title"><form id="booking-form"><div class="dialog-top"><p class="eyebrow">MAKE YOURSELF AT HOME</p><button type="button" id="close-dialog" class="close" aria-label="Close">×</button></div><h2 id="dialog-title">Who’s staying?</h2><label class="date-label" for="stay-date">Date</label><input type="date" id="stay-date" required><p class="dialog-description">Choose everyone staying in the room. Leave all names unchecked to mark it available.</p><div id="member-options"></div><p id="save-error" class="error" role="alert"></p><div class="dialog-actions"><button type="button" id="clear-day" class="text-button">Clear date</button><button type="submit" class="primary" id="save-booking">Save changes <span aria-hidden="true">↗</span></button></div><p class="dialog-footnote">Changes are shared with everyone on this calendar.</p></form></dialog>
+</body>
+</html>
