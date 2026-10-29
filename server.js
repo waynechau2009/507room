@@ -46,7 +46,7 @@ export function createApp(databasePath = join(root, 'data', 'room.sqlite')) {
       }
       if (url.pathname.startsWith('/api/')) return json(404, { error: 'Not found.' });
       if (!['GET', 'HEAD'].includes(req.method)) return json(405, { error: 'Method not allowed.' });
-      const files = { '/': ['index.html', 'text/html; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'] };
+      const files = { '/': ['index.html', 'text/html; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'], '/data.js': ['data.js', 'text/javascript; charset=utf-8'], '/config.json': ['config.json', 'application/json'], '/style.css': ['style.css', 'text/css; charset=utf-8'] };
       const file = files[url.pathname];
       if (!file) return json(404, { error: 'Not found.' });
       res.writeHead(200, { 'Content-Type': file[1], 'Cache-Control': 'no-cache', 'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'" });

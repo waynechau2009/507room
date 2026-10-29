@@ -1,4 +1,4 @@
-const members = ['Yoyo', 'Sum', 'Hilary', 'Leo', 'Wayne', 'Cindy'];
+import { members, loadOccupancy, saveOccupancy, ConfigurationError, ConflictError } from './data.js';
 const $ = id => document.getElementById(id);
 const today = () => new Date();
 const key = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -50,15 +50,16 @@ async function refresh() {
   if (refreshing) return refreshing;
   refreshing = (async () => {
     try {
-      const response = await fetch('/api/occupancy', { cache: 'no-store' });
-      if (!response.ok) throw new Error('Unable to load calendar');
-      const data = await response.json();
+      const data = await loadOccupancy();
+      $('connection-error').hidden = true;
       bookings = data.bookings;
       loaded = true;
       $('sync-status').textContent = 'All changes saved';
       render();
       return true;
-    } catch {
+    } catch (error) {
+      $('connection-error').hidden = false;
+      $('connection-error').textContent = error instanceof ConfigurationError ? error.message : 'We couldn’t load the shared calendar. Check your connection and try again. Blank dates may not reflect the latest bookings.';
       $('sync-status').textContent = loaded ? 'Offline · reconnecting…' : 'Cannot connect · retrying…';
       return false;
     } finally { refreshing = null; }
@@ -91,17 +92,14 @@ $('booking-form').addEventListener('submit', async event => {
   $('save-booking').textContent = 'Saving…';
   $('save-error').textContent = '';
   try {
-    const response = await fetch('/api/occupancy', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-    const result = await response.json();
-    if (!response.ok) {
-      if (response.status === 409) { await refresh(); loadSelection(); }
-      throw new Error(result.error || 'Could not save. Please try again.');
-    }
+    const result = await saveOccupancy(payload);
     bookings[result.date] = { names: result.names, version: result.version };
     render();
     $('booking-dialog').close();
     await refresh();
-  } catch (error) { $('save-error').textContent = error.message === 'Failed to fetch' ? 'Connection lost. Your changes haven’t been saved. Please try again.' : error.message; }
+  } catch (error) {
+    if (error instanceof ConflictError) { await refresh(); loadSelection(); }
+    $('save-error').textContent = error.message === 'Failed to fetch' ? 'Connection lost. Your changes haven’t been saved. Please try again.' : error.message; }
   finally {
     saving = false;
     controls.forEach(control => { control.disabled = false; });

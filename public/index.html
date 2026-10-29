@@ -4,12 +4,13 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f5f0"><meta name="description" content="One room, six friends. A shared occupancy calendar for room 507.">
   <title>507 room · Our shared calendar</title>
-  <link rel="stylesheet" href="/style.css"><script src="/app.js" type="module"></script>
+  <link rel="stylesheet" href="./style.css"><script src="./app.js" type="module"></script>
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="/" aria-label="507 room home"><span class="brand-icon">⌂</span>507<span class="brand-light">room</span></a><div class="header-right"><span class="shared-label">A little space for all of us</span><span class="shared-badge"><span class="dot"></span>Shared calendar</span></div></header>
+  <header class="topbar"><a class="brand" href="./" aria-label="507 room home"><span class="brand-icon">⌂</span>507<span class="brand-light">room</span></a><div class="header-right"><span class="shared-label">A little space for all of us</span><span class="shared-badge"><span class="dot"></span>Shared calendar</span></div></header>
   <main>
     <section class="intro"><div><p class="eyebrow">SIX FRIENDS. ONE SPACE.</p><h1>Make room for <em>each other.</em></h1><p class="subtitle">See who’s staying, find a free day, and make yourself at home.</p></div><button class="primary" id="book-today"><span aria-hidden="true">＋</span> Add a stay</button></section>
+    <p id="connection-error" class="connection-error" role="alert" hidden></p>
     <section class="workspace" aria-label="Room calendar">
       <aside>
         <div class="room-card"><div class="room-illustration" aria-hidden="true"><svg viewBox="0 0 220 145" fill="none"><path d="M35 119H189M52 119V37L111 13L173 37V119" stroke="currentColor" stroke-width="1.5"/><path d="M62 114V69H121V114M62 88H121M91 69V88M56 114H131M137 114V48H164V114M142 54H159V84H142Z" stroke="currentColor" stroke-width="1.5"/><path d="M65 64L59 46H93L87 64M75 46V29M135 94H167M145 105H157" stroke="currentColor" stroke-width="1.5"/><path d="M175 119V88M175 100C156 94 168 79 175 96C181 74 193 87 175 100" stroke="currentColor" stroke-width="1.5"/></svg><span class="room-number">507</span></div><p class="eyebrow">OUR LITTLE CORNER</p><h2>Same room.<br>Different plans.</h2><p>A shared home base.<br>Keep everyone in the loop.</p></div>
